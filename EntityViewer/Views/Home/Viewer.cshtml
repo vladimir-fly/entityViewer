@@ -1,8 +1,8 @@
-﻿@using System.Collections
-@using System.Linq
+﻿@using System.Linq
 @using System.Reflection
 @using EntityViewer.Models
 @model Backpack
+@*@model Location*@
 
 @{
     ViewBag.Title = "Viewer";
@@ -23,24 +23,24 @@
         switch (attribute.DisplayType)
         {
             case DisplayType.Field:
-                foreach (var field in Model.GetType().GetRuntimeFields())
+                foreach (var field in Model.GetType().GetFields())
                 {
                     if (field.FieldType != typeof(List<IEntity>))
                     {
-                        var entity = field.GetValue(Model);
-                        @entity
+                        var result = string.Format("Name: {0}, Value: {1}", field.Name, field.GetValue(Model));
+                        @result
                         <br/>
                     }
                 }
                 break;
 
             case DisplayType.Property:
-                foreach (var property in Model.GetType().GetRuntimeProperties())
+                foreach (var property in Model.GetType().GetProperties())
                 {
                     if (property.PropertyType != typeof(List<IEntity>))
                     {
-                        var entity = property.GetValue(Model);
-                        @entity
+                        var result = string.Format("Name: {0}, Value: {1}", property.Name, property.GetValue(Model));
+                        @result
                         <br/>
                     }
                 }

@@ -6,26 +6,21 @@ namespace EntityViewer.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-            return View();
-        }
-
         public ActionResult Viewer()
         {
+            var location = new Location
+            {
+                Description = "Main location",
+                Id = "location1",
+                Name = "BaseLocation",
+                Players = new List<Player>
+                {
+                    new Player { Health = 50, Id = "player1", Stamina = 120 },
+                    new Player { Health = 100, Id = "player2", Stamina = 150 }
+                },
+                Size = 100
+            };
+
             var backpack = new Backpack
             {
                 Items = new List<IEntity>
@@ -35,9 +30,11 @@ namespace EntityViewer.Controllers
                     new Item {Name = "Item3_name", Id = "item3", Stock = new List<string> {"Item3_stock1", "Item3_stock2", "Item3_stock3"}},
                     new Item {Name = "Item4_name", Id = "item4", Stock = new List<string> {"Item4_stock1", "Item4_stock2", "Item4_stock3"}},
                 },
-                Weight = 100
+                Weight = 100,
+                Id = "backpack1"
             };
 
+            //return View(location);
             return View(backpack);
         }
     }

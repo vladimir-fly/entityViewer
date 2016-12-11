@@ -1,0 +1,16 @@
+/home/fly/projects/entityViewer/EntityViewer/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/fly/projects/entityViewer/EntityViewer/bin/EntityViewer.dll.mdb
+/home/fly/projects/entityViewer/EntityViewer/bin/EntityViewer.dll
+/home/fly/projects/entityViewer/EntityViewer/obj/Debug/EntityViewer.dll
+/home/fly/projects/entityViewer/EntityViewer/obj/Debug/EntityViewer.dll.mdb
+/home/fly/projects/entityViewer/EntityViewer/bin/Microsoft.Web.Infrastructure.dll
+/home/fly/projects/entityViewer/EntityViewer/bin/Newtonsoft.Json.dll
+/home/fly/projects/entityViewer/EntityViewer/bin/System.Net.Http.Formatting.dll
+/home/fly/projects/entityViewer/EntityViewer/bin/System.Web.Http.dll
+/home/fly/projects/entityViewer/EntityViewer/bin/System.Web.Http.WebHost.dll
+/home/fly/projects/entityViewer/EntityViewer/bin/System.Web.Helpers.dll
+/home/fly/projects/entityViewer/EntityViewer/bin/System.Web.Mvc.dll
+/home/fly/projects/entityViewer/EntityViewer/bin/System.Web.Razor.dll
+/home/fly/projects/entityViewer/EntityViewer/bin/System.Web.WebPages.dll
+/home/fly/projects/entityViewer/EntityViewer/bin/System.Web.WebPages.Deployment.dll
+/home/fly/projects/entityViewer/EntityViewer/bin/System.Web.WebPages.Razor.dll

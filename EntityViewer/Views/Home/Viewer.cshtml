@@ -1,0 +1,94 @@
+﻿@using System.Collections
+@using System.Linq
+@using System.Reflection
+@using EntityViewer.Models
+@model Backpack
+
+@{
+    ViewBag.Title = "Viewer";
+}
+<div>
+
+  <div><h4>Model: @Model</h4>
+  </div>
+  Fields count: @Model.GetType().GetRuntimeFields().Count().ToString()
+  <br/>
+  Properties count: @Model.GetType().GetRuntimeProperties().Count().ToString()
+  <br/>
+  <br/>
+  <div>
+    @if (Attribute.IsDefined(Model.GetType(), typeof(DisplayEntityTypeAttribute)))
+    {
+        var attribute = Attribute.GetCustomAttribute(Model.GetType(), typeof(DisplayEntityTypeAttribute)) as DisplayEntityTypeAttribute;
+        switch (attribute.DisplayType)
+        {
+            case DisplayType.Field:
+                foreach (var field in Model.GetType().GetRuntimeFields())
+                {
+                    if (field.FieldType != typeof(List<IEntity>))
+                    {
+                        var entity = field.GetValue(Model);
+                        @entity
+                        <br/>
+                    }
+                }
+                break;
+
+            case DisplayType.Property:
+                foreach (var property in Model.GetType().GetRuntimeProperties())
+                {
+                    if (property.PropertyType != typeof(List<IEntity>))
+                    {
+                        var entity = property.GetValue(Model);
+                        @entity
+                        <br/>
+                    }
+                }
+                break;
+
+            case DisplayType.Collection:
+                <div>
+                  <li class="dropdown">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                      Items
+                      <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      @foreach (var field in Model.GetType().GetRuntimeFields())
+                      {
+                          if (field.FieldType == typeof(List<IEntity>))
+                          {
+                              var entities = field.GetValue(Model) as List<IEntity>;
+                              if (entities != null)
+                              {
+                                  foreach (var entity in entities)
+                                  {
+                                      var item = entity as Item;
+                                      if (item != null)
+                                      {
+                                          var name = item.Name;
+                                          var id = item.Id;
+                                          var stockLength = item.Stock.Count;
+                                          @:<li><a href="#">@string.Format("Name: {0}, Id: {1}, StockLength: {2}", name, id, stockLength)
+                                      }
+                                      @:</a></li>
+                                  }
+                              }
+                          }
+                      }
+                    </ul>
+                  </li></div>
+                break;
+
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+  </div>
+  <br>
+</div>
+
+
+
+
+

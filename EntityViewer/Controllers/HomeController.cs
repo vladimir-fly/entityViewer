@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using EntityViewer.Models;
 
@@ -36,6 +37,16 @@ namespace EntityViewer.Controllers
 
             //return View(location);
             return View(backpack);
+        }
+
+        public ActionResult Inspector()
+        {
+            return null;
+        }
+
+        public ActionResult Index()
+        {
+            return null;
         }
     }
 }

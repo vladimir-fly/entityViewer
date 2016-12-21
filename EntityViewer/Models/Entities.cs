@@ -32,7 +32,7 @@ namespace EntityViewer.Models
         public string Id { get; set; }
     }
 
-    public class Item : IEntity
+    public class StuffItem : IEntity
     {
         public List<string> Stock;
         public string Name;
@@ -53,4 +53,11 @@ namespace EntityViewer.Models
         public List<Player> Players;
         public string Id { get; set; }
     }
+
+    public class Weapon : Item
+    {
+        public string Data { get; set; }
+    }
+
+
 }

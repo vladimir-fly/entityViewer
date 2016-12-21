@@ -41,12 +41,12 @@ namespace EntityViewer.Controllers
 
         public ActionResult Inspector()
         {
-            return null;
+            return View();
         }
 
         public ActionResult Index()
         {
-            return null;
+            return View();
         }
     }
 }

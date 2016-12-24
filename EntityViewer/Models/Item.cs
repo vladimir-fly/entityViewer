@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace MongoTest
+namespace EntityViewer.Models
 {
     public class Item : ICollection<Item>, ICollection<Component>
     {
@@ -12,8 +12,7 @@ namespace MongoTest
 
         public Item(Item parent = null)
         {
-            if (parent != null)
-                parent.Add(this);
+            parent?.Add(this);
         }
 
         public Item Parent
@@ -26,16 +25,14 @@ namespace MongoTest
 
                 var parent = _parent;
                 _parent = value;
-                if (parent != null)
-                    parent.Remove(this);
 
-                if (_parent != null)
-                    _parent.Add(this);
+                parent?.Remove(this);
+                _parent?.Add(this);
             }
         }
 
-        public ICollection<Item> Childs { get { return this; } }
-        public ICollection<Component> Components { get { return this; } }
+        public ICollection<Item> Childs => this;
+        public ICollection<Component> Components => this;
 
         public IEnumerable ComponentsAsEnumerable()
         {
@@ -71,25 +68,17 @@ namespace MongoTest
             return removed;
         }
 
-        int ICollection<Item>.Count
-        {
-            get { return _childs != null ? _childs.Count : 0; }
-        }
+        int ICollection<Item>.Count => _childs?.Count ?? 0;
 
-        bool ICollection<Item>.IsReadOnly
-        {
-            get { return false; }
-        }
+        bool ICollection<Item>.IsReadOnly => false;
 
         void ICollection<Item>.Clear()
         {
-            if (_childs != null)
-            {
-                var childs = _childs.ToArray();
-                _childs.Clear();
-                foreach (var child in childs)
-                    child.Parent = null;
-            }
+            if (_childs == null) return;
+            var childs = _childs.ToArray();
+            _childs.Clear();
+            foreach (var child in childs)
+                child.Parent = null;
         }
 
         bool ICollection<Item>.Contains(Item item)
@@ -104,9 +93,7 @@ namespace MongoTest
 
         IEnumerator<Item> IEnumerable<Item>.GetEnumerator()
         {
-            return _childs != null
-                ? _childs.GetEnumerator()
-                : new List<Item>().GetEnumerator();
+            return _childs?.GetEnumerator() ?? new List<Item>().GetEnumerator();
         }
 
         #endregion ICollection<Item>
@@ -135,25 +122,17 @@ namespace MongoTest
             return removed;
         }
 
-        int ICollection<Component>.Count
-        {
-            get { return _components != null ? _components.Count : 0; }
-        }
+        int ICollection<Component>.Count => _components?.Count ?? 0;
 
-        bool ICollection<Component>.IsReadOnly
-        {
-            get { return false; }
-        }
+        bool ICollection<Component>.IsReadOnly => false;
 
         void ICollection<Component>.Clear()
         {
-            if (_childs != null)
-            {
-                var childs = _childs.ToArray();
-                _childs.Clear();
-                foreach (var child in childs)
-                    child.Parent = null;
-            }
+            if (_childs == null) return;
+            var childs = _childs.ToArray();
+            _childs.Clear();
+            foreach (var child in childs)
+                child.Parent = null;
         }
 
         bool ICollection<Component>.Contains(Component component)
@@ -168,9 +147,7 @@ namespace MongoTest
 
         IEnumerator<Component> IEnumerable<Component>.GetEnumerator()
         {
-            return _components != null
-                ? _components.GetEnumerator()
-                : new List<Component>().GetEnumerator();
+            return _components?.GetEnumerator() ?? new List<Component>().GetEnumerator();
         }
 
         #endregion ICollection<Component>

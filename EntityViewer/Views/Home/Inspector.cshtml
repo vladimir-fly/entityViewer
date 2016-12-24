@@ -1,0 +1,24 @@
+﻿@model EntityViewer.Models.Weapon
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Inspector</title>
+  </head>
+  <body>
+    <div>
+      <div>
+        <br>
+        <li class="dropdown">
+          <a href="#" data-toggle="dropdown" class="dropdown-toggle">Childs</a>
+          <ul class="dropdown-menu">
+            @foreach (var child in Model.Childs)
+            {
+                <li><a href="#">@string.Format("Child: {0}", child.GetHashCode())</a></li>
+            }
+          </ul>
+        </li>
+      </div>
+    </div>
+  </body>
+</html>

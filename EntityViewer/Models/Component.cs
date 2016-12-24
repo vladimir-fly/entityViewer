@@ -1,4 +1,4 @@
-﻿namespace MongoTest
+namespace EntityViewer.Models
 {
     public class Component
     {
@@ -19,11 +19,8 @@
 
                 var item = _item;
                 _item = value;
-                if (item != null)
-                    item.Remove(this);
-
-                if (_item != null)
-                    _item.Add(this);
+                item?.Remove(this);
+                _item?.Add(this);
             }
         }
     }

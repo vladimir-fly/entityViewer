@@ -63,7 +63,7 @@
                               {
                                   foreach (var entity in entities)
                                   {
-                                      var item = entity as Item;
+                                      var item = entity as StuffItem;
                                       if (item != null)
                                       {
                                           var name = item.Name;
@@ -77,11 +77,9 @@
                           }
                       }
                     </ul>
-                  </li></div>
+                  </li>
+                </div>
                 break;
-
-            default:
-                throw new ArgumentOutOfRangeException();
         }
     }
   </div>

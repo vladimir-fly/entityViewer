@@ -4,20 +4,24 @@
 <html>
   <head>
     <title>Inspector</title>
+    <style type="text/css"></style>
   </head>
   <body>
+    <br>
     <div>
-      <div>
-        <br>
-        <li class="dropdown">
-          <a href="#" data-toggle="dropdown" class="dropdown-toggle">Childs</a>
-          <ul class="dropdown-menu">
-            @foreach (var child in Model.Childs)
-            {
-                <li><a href="#">@string.Format("Child: {0}", child.GetHashCode())</a></li>
-            }
-          </ul>
-        </li>
+      <div id="container">
+        <div id="left" class="column">
+            <ul>
+              @foreach (var child in Model.Childs)
+              {
+                  <li><div>@string.Format("Child: {0}", child.GetHashCode())</div></li>
+              }
+            </ul>
+        </div>
+        <div id="center" class="column"><p>Children</p></div>
+        <div id="right" class="column"><p>Components</p></div>
+        <div id="library">Component library</div>
+        <div id="footer">Json result</div>
       </div>
     </div>
   </body>

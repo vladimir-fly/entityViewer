@@ -59,5 +59,4 @@ namespace EntityViewer.Models
         public string Data { get; set; }
     }
 
-
 }

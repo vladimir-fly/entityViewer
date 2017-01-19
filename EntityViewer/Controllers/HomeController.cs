@@ -41,7 +41,23 @@ namespace EntityViewer.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var items = new List<Item>
+            {
+                new Item {new Item(), new Item(), new Item()},
+                new Item {new Component(), new Component(), new Component()},
+                new Item {new Component()},
+                new Item {new Component(), new Component()},
+                new Item {new Item(), new Item() },
+                new Item {new Item(), new Item(), new Item(), new Item()},
+                new Item(),
+                new Item(),
+                new Item(),
+                new Item(),
+                new Item(),
+                new Item()
+            };
+
+            return View(items);
         }
 
         public ActionResult Inspector()

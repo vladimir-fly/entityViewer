@@ -69,7 +69,6 @@ namespace EntityViewer.Models
         }
 
         int ICollection<Item>.Count => _childs?.Count ?? 0;
-
         bool ICollection<Item>.IsReadOnly => false;
 
         void ICollection<Item>.Clear()

@@ -1,5 +1,47 @@
-﻿@{
+﻿@using EntityViewer.Models
+@model IEnumerable<Item>
+
+@{
   ViewBag.Title = "Home Page";
 }
 
-<div><h2>Index</h2></div>
+<style>
+    P {
+        text-indent: 5%;
+        text-align: justify;
+    }
+</style>
+<div>
+  <br/>
+  Items (count: @Model.Count()):
+  @foreach (var item in @Model)
+  {
+      <div class="item">
+        Item hashCode: @item.GetHashCode()
+        <br/>
+        <p>
+          Components (count: @item.Components.Count):
+          @foreach (var component in item.Components)
+          {
+              @component.GetHashCode();@:;
+          }
+        </p>
+
+        <p>
+          Children (count: @item.Childs.Count):
+          @foreach (var child in item.ChildsAsEnumerable())
+          {
+              <p>
+                -  Child hashCode: @child.GetHashCode();
+              </p>
+          }
+        </p>
+      </div>
+      @:---------------------------------------------------
+  }
+  <br/>
+</div>
+
+@* Child collection *@
+<div>
+</div>

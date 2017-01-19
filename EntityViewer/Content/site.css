@@ -20,5 +20,46 @@ body {
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 100%;
+}
+
+#container .column {
+    float: left;
+    position: relative;
+}
+
+#container .item {
+
+}
+
+#center {
+    width: 60%;
+    background: grey;
+    border-color: black;
+
+}
+#left {
+    width: 20%;
+    margin-left: 0%;
+    background: grey;
+}
+#right {
+    width: 20%;
+    margin-right: 0%;
+    background: grey;
+}
+#footer {
+    clear: both;
+    background: grey;
+}
+
+#library {
+    clear: both;
+    background: black;
+}
+
+ul {
+    list-style-type: none;
+    margin-left: 10px;
+    padding-left: 10px;
 }

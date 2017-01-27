@@ -1,47 +1,52 @@
 ﻿@using EntityViewer.Models
+
 @model IEnumerable<Item>
 
 @{
   ViewBag.Title = "Home Page";
 }
 
-<style>
-    P {
-        text-indent: 5%;
-        text-align: justify;
-    }
-</style>
-<div>
-  <br/>
-  Items (count: @Model.Count()):
-  @foreach (var item in @Model)
-  {
-      <div class="item">
-        Item hashCode: @item.GetHashCode()
-        <br/>
-        <p>
-          Components (count: @item.Components.Count):
-          @foreach (var component in item.Components)
-          {
-              @component.GetHashCode();@:;
-          }
-        </p>
+<div id="left">
+    <br/>
+    <ul>
+        <li id="m" onClick="$('#abc').toggle()">Items (count:@Model.Count()): </li>
+        <div id="abc">
+            <ul>
+                @foreach (var item in Model)
+                {
+                    var mmm = string.Format(
+                        "<p>Components (count: {0}): </br> {1}</p>",
+                        item.Components.Count,
+                        string.Join("</br>", item.Components.Select((c, i) => c.GetHashCode())));
 
-        <p>
-          Children (count: @item.Childs.Count):
-          @foreach (var child in item.ChildsAsEnumerable())
-          {
-              <p>
-                -  Child hashCode: @child.GetHashCode();
-              </p>
-          }
-        </p>
-      </div>
-      @:---------------------------------------------------
-  }
-  <br/>
+                    <div class="tst" onClick="$('#right').html('@mmm')">
+                        <li id="item" onClick="$('#mm_@item.GetHashCode()').toggle()">
+                            Item hashCode: @item.GetHashCode();
+                            Children (count: @item.Childs.Count);
+                            Components (count: @item.Components.Count):
+                        </li>
+                        <ul id="mm_@item.GetHashCode()">
+                            <li>
+                                <p>
+                                    @foreach (var child in item.ChildsAsEnumerable())
+                                    {
+                                        <p>
+                                            - Child hashCode: @child.GetHashCode();
+                                        </p>
+                                    }
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    @:---------------------------------------------------
+                }
+            </ul>
+        </div>
+    </ul>
 </div>
 
-@* Child collection *@
-<div>
+<div id="right" >
+    @Html.Raw("<p></p>")
+@*Partial("Page1", @Model.First().Components.ToList())*@
 </div>

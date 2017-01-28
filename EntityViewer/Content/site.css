@@ -33,21 +33,22 @@ textarea {
 }
 
 #center {
-    width: 60%;
+    width: 40%;
     background: grey;
     border-color: black;
 
 }
-#left {
-    width: 20%;
+#left_panel {
+    width: 50%;
     margin-left: 0%;
-    background: grey;
+    float: left;
 }
-#right {
-    width: 20%;
+#right_panel {
+    width: 50%;
+    float: right;
     margin-right: 0%;
-    background: grey;
 }
+
 #footer {
     clear: both;
     background: grey;
@@ -62,4 +63,16 @@ ul {
     list-style-type: none;
     margin-left: 10px;
     padding-left: 10px;
+}
+
+.tree_item {
+    background: lightgrey;
+}
+P {
+    text-indent: 5%;
+    text-align: justify;
+}
+.tree_item:hover
+{
+    color:#888;
 }

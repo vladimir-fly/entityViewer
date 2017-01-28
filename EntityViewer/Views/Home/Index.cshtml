@@ -1,52 +1,46 @@
 ﻿@using EntityViewer.Models
-
 @model IEnumerable<Item>
 
-@{
-  ViewBag.Title = "Home Page";
-}
+@{ ViewBag.Title = "Items tree"; }
 
-<div id="left">
-    <br/>
-    <ul>
-        <li id="m" onClick="$('#abc').toggle()">Items (count:@Model.Count()): </li>
-        <div id="abc">
+<br/>
+
+@helper ShowItemTree(List<Item> items)
+{
+    <ul class="list-group">
+        <div>
             <ul>
-                @foreach (var item in Model)
+                @foreach (var item in items)
                 {
-                    var mmm = string.Format(
-                        "<p>Components (count: {0}): </br> {1}</p>",
+                    var componentList = string.Format(
+                        "<br/> <ul>Components (count: {0}): <br/> {1}</ul>",
                         item.Components.Count,
-                        string.Join("</br>", item.Components.Select((c, i) => c.GetHashCode())));
+                        string.Join("<li>", item.Components.Select((c, i) => c.GetHashCode())));
 
-                    <div class="tst" onClick="$('#right').html('@mmm')">
-                        <li id="item" onClick="$('#mm_@item.GetHashCode()').toggle()">
+                    <div>
+                        <li id="item" class="list-group-item tree_item"
+                            onClick="$('#tree_item_@item.GetHashCode()').toggle();$('#right_panel').html('@componentList');">
                             Item hashCode: @item.GetHashCode();
                             Children (count: @item.Childs.Count);
                             Components (count: @item.Components.Count):
                         </li>
-                        <ul id="mm_@item.GetHashCode()">
-                            <li>
-                                <p>
-                                    @foreach (var child in item.ChildsAsEnumerable())
-                                    {
-                                        <p>
-                                            - Child hashCode: @child.GetHashCode();
-                                        </p>
-                                    }
-                                </p>
-                            </li>
+                        <ul id="tree_item_@item.GetHashCode()">
+                            <li>@ShowItemTree(item.Childs.ToList())</li>
                         </ul>
                     </div>
-
-                    @:---------------------------------------------------
                 }
             </ul>
         </div>
     </ul>
+}
+
+<div id="left_panel">
+    <br/>
+    Items (count: @Model.Count()):
+    <br/>
+    @ShowItemTree(@Model.ToList())
 </div>
 
-<div id="right" >
-    @Html.Raw("<p></p>")
-@*Partial("Page1", @Model.First().Components.ToList())*@
+<div id="right_panel">
+    <br/>
 </div>

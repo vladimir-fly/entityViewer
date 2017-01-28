@@ -38,17 +38,15 @@ textarea {
     border-color: black;
 
 }
-#left {
+#left_panel {
     width: 50%;
     margin-left: 0%;
     float: left;
-    background: grey;
 }
-#right {
+#right_panel {
     width: 50%;
     float: right;
     margin-right: 0%;
-    background: cyan;
 }
 
 #footer {
@@ -66,11 +64,15 @@ ul {
     margin-left: 10px;
     padding-left: 10px;
 }
+
+.tree_item {
+    background: lightgrey;
+}
 P {
     text-indent: 5%;
     text-align: justify;
 }
-.tst:hover
+.tree_item:hover
 {
-    color:#666;
+    color:#888;
 }

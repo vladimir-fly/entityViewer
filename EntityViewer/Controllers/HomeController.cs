@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Web.Mvc;
 using EntityViewer.Models;
 
@@ -43,17 +44,18 @@ namespace EntityViewer.Controllers
         {
             var items = new List<Item>
             {
+                new Item {new Component(), new Component(), new Component(),
+                    new Item {new Item(), new Item(), new Item(), new Component()}},
+                new Item {new Item(), new Item {new Item(), new Item()}, new Item()},
                 new Item {new Component(), new Component(), new Component(), new Item()},
-                new Item {new Item(), new Item(), new Item()},
-                new Item {new Component()},
                 new Item {new Component(), new Component()},
-                new Item {new Item(), new Item() },
+                new Item {new Item(), new Item(), new Item() },
                 new Item {new Item(), new Item(), new Item(), new Item()},
-                new Item(),
-                new Item(),
-                new Item(),
-                new Item(),
-                new Item(),
+                new Item {new Component(), new Component(), new Component()},
+                new Item {new Item{new Component(), new Item{new Item{new Component(), new Component()}}}},
+                new Item {new Item{new Item{new Item{new Component()}}}},
+                new Item {new Item{new Item(), new Item(), new Item()}},
+                new Item {new Component(), new Component(), new Component(), new Component()},
                 new Item()
             };
 
@@ -69,12 +71,6 @@ namespace EntityViewer.Controllers
                 Data = "New weapon"
             };
             return View(tmpItem);
-        }
-
-        public ActionResult Page1(List<Component> components)
-        {
-            ViewBag.Message = "Это частичное представление.";
-            return PartialView(components);
         }
     }
 }

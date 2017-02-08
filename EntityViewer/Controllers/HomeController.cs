@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using EntityViewer.Models;
 
@@ -40,7 +38,7 @@ namespace EntityViewer.Controllers
             return View(backpack);
         }
 
-        public ActionResult Index()
+        public ActionResult Index(IEnumerable<Item> model)
         {
             var items = new List<Item>
             {
@@ -56,10 +54,12 @@ namespace EntityViewer.Controllers
                 new Item {new Item{new Item{new Item{new Component()}}}},
                 new Item {new Item{new Item(), new Item(), new Item()}},
                 new Item {new Component(), new Component(), new Component(), new Component()},
-                new Item()
+                new Item(),
+                new Item {new Item(), new Component(), new Component(), new Item()}
+
             };
 
-            return View(items);
+            return View(model ?? items);
         }
 
         public ActionResult Inspector()
@@ -72,5 +72,7 @@ namespace EntityViewer.Controllers
             };
             return View(tmpItem);
         }
+
+        public IEnumerable<Item> Items { get; set; }
     }
 }

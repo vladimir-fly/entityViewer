@@ -5,42 +5,79 @@
 
 <br/>
 
+@functions
+{
+    public string ShowComponents(ICollection<Component> components)
+    {
+    //        return
+    //            string.Format("<p>{0}</p>",
+    //                         components.Aggregate(string.Empty,
+    //                            (val, c) => val + " <br>" + c.GetHashCode()));
+
+        var componentList = string.Format(
+            "<ul>Components (count: {0}): <br/> {1}</ul>",
+            components.Count,
+            string.Join("<li>  <textarea name='comment' cols='40' rows='3'>",
+                            components.Select((c, i) => c.GetHashCode())));
+            return componentList;
+    }
+}
+@*<ul class="list-group">*@
 @helper ShowItemTree(List<Item> items)
 {
-    <ul class="list-group">
-        <div>
-            <ul>
-                @foreach (var item in items)
-                {
-                    var componentList = string.Format(
-                        "<br/> <ul>Components (count: {0}): <br/> {1}</ul>",
-                        item.Components.Count,
-                        string.Join("<li>", item.Components.Select((c, i) => c.GetHashCode())));
+    foreach (var item in items)
+    {
 
-                    <div>
-                        <li id="item" class="list-group-item tree_item"
-                            onClick="$('#tree_item_@item.GetHashCode()').toggle();$('#right_panel').html('@componentList');">
-                            Item hashCode: @item.GetHashCode();
-                            Children (count: @item.Childs.Count);
-                            Components (count: @item.Components.Count):
-                        </li>
-                        <ul id="tree_item_@item.GetHashCode()">
-                            <li>@ShowItemTree(item.Childs.ToList())</li>
-                        </ul>
-                    </div>
-                }
-            </ul>
-        </div>
-    </ul>
+        <li class="list-group-item tree_item"
+            onClick="$('#tree_item_@item.GetHashCode()').toggle();$('#right_panel').html('@ShowComponents(item.Components)');">
+
+            Item hashCode: @item.GetHashCode();
+            Children (count: @item.Childs.Count);
+            Components (count: @item.Components.Count):
+        </li>
+        <ul id="tree_item_@item.GetHashCode()" class="subtree">
+            @ShowItemTree(item.Childs.ToList())
+        </ul>
+
+    }
 }
+@*</ul>*@
 
-<div id="left_panel">
-    <br/>
-    Items (count: @Model.Count()):
-    <br/>
-    @ShowItemTree(@Model.ToList())
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Categories
+        <span class="caret"></span>
+    </button>
+        <ul class="dropdown-menu">
+            @foreach (var item in Model)
+            {
+                <li><a href="#">
+                    @item.GetHashCode()
+                </a></li>
+            }
+        </ul>
 </div>
 
-<div id="right_panel">
+<div id="left_panel" class="well">
+@*    @Html.BeginForm("Index", "Home"))*@
+@*    {*@
+@*        @Html.TextBoxFor(m => m.it)*@
+@*        @Html.TextBoxFor(m => m.LastName)*@
+@*        <input type="submit" value="Search" />*@
+@*    }*@
+
+    Items (count: @Model.Count())
+
+    <button type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add item
+    </button>
+    @* @Html.ActionLink("Save", "Index", "Home", Model, null)*@
     <br/>
+        @ShowItemTree(Model.ToList())
 </div>
+
+<div id="right_panel" class="well">
+    <br/>
+
+</div>
+

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 
 namespace EntityViewer.Models
 {
-    public class Item : ICollection<Item>, ICollection<Component>
+    public class Item : WebClient, ICollection<Item>, ICollection<Component>
     {
         private Item _parent;
         private List<Item> _childs;
@@ -155,9 +156,11 @@ namespace EntityViewer.Models
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return _childs?.GetEnumerator() ?? new List<Item>().GetEnumerator();
         }
 
         #endregion
+
+        public string Id => $"item_{GetHashCode()}";
     }
 }

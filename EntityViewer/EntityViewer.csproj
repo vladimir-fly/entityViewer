@@ -106,6 +106,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs" />
     <Compile Include="Models\Attributes.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Component.cs" />
     <Compile Include="Models\Entities.cs" />
     <Compile Include="Models\Item.cs" />

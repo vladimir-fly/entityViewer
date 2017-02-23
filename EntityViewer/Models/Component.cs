@@ -2,6 +2,7 @@ namespace EntityViewer.Models
 {
     public class Component
     {
+        public string ComponentId { get; set; }
         private Item _item;
 
         public Component(Item item = null)

@@ -1,46 +1,80 @@
-﻿@using EntityViewer.Models
+﻿@using System.Web.UI.WebControls
+@using EntityViewer.Models
 @model IEnumerable<Item>
 
 @{ ViewBag.Title = "Items tree"; }
 
 <br/>
 
+@functions
+{
+    public string ShowComponents(Item item)
+    {
+        ViewData["selectedItem"] = item;
+
+        var result = string.Format("{0}", item.Components.Aggregate("<br/>",
+            (val, c) => val + string.Format("<input type=\"text\" size=\"30\" value={0}><br/>", c.GetHashCode())));
+
+        return string.Format("<ul>Components (count: {0}): <br/> {1}</ul>", item.Components.Count, result);
+    }
+
+}
 @helper ShowItemTree(List<Item> items)
 {
-    <ul class="list-group">
-        <div>
-            <ul>
-                @foreach (var item in items)
-                {
-                    var componentList = string.Format(
-                        "<br/> <ul>Components (count: {0}): <br/> {1}</ul>",
-                        item.Components.Count,
-                        string.Join("<li>", item.Components.Select((c, i) => c.GetHashCode())));
+    foreach (var item in items)
+    {
+        <li class="list-group-item tree_item"
+            onClick="$('#tree_item_@item.GetHashCode()').toggle(400);$('#right_panel').html('@ShowComponents(item)');">
 
-                    <div>
-                        <li id="item" class="list-group-item tree_item"
-                            onClick="$('#tree_item_@item.GetHashCode()').toggle();$('#right_panel').html('@componentList');">
-                            Item hashCode: @item.GetHashCode();
-                            Children (count: @item.Childs.Count);
-                            Components (count: @item.Components.Count):
-                        </li>
-                        <ul id="tree_item_@item.GetHashCode()">
-                            <li>@ShowItemTree(item.Childs.ToList())</li>
-                        </ul>
-                    </div>
-                }
-            </ul>
-        </div>
-    </ul>
+            Item hashCode: @item.GetHashCode();
+            Children (count: @item.Childs.Count);
+            Components (count: @item.Components.Count):
+            <input type="button" style="float: right; height: 25px;" value="X"/>
+        </li>
+        <ul id="tree_item_@item.GetHashCode()" class="subtree">
+            @ShowItemTree(item.Childs.ToList())
+        </ul>
+    }
 }
 
-<div id="left_panel">
-    <br/>
-    Items (count: @Model.Count()):
-    <br/>
-    @ShowItemTree(@Model.ToList())
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Categories
+        <span class="caret"></span>
+    </button>
+
+    @using (Html.BeginForm("SaveItemsToJson", "Home", Model, FormMethod.Get))
+    {
+        <input type="submit" value="Save items to json" class="btn btn-default btn-sm"/>
+    }
+
+    @using (Html.BeginForm("SaveItem", "Home", ViewData["selectedItem"], FormMethod.Get))
+    {
+        <input type="submit" value="Save selected item" class="btn btn-default btn-sm"/>
+    }
+
+    <ul class="dropdown-menu">
+        @foreach (var item in Model)
+        {
+            <li><a href="#">
+                @item.GetHashCode()
+            </a></li>
+        }
+    </ul>
 </div>
 
-<div id="right_panel">
+<div id="left_panel" class="well">
+    Items (count: @Model.Count())
+
+    <button type="button" class="btn btn-default btn-sm">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add item
+    </button>
+    <br/>
+        @ShowItemTree(Model.ToList())
+</div>
+
+<div id="right_panel" class="well">
     <br/>
 </div>
+
